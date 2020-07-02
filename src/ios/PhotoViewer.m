@@ -212,7 +212,12 @@
 
     imageView = [[UIImageView alloc]init];
     [imageView setContentMode:UIViewContentModeScaleAspectFit];
-    UIImage *image = [UIImage imageWithContentsOfFile:url.path];
+    UIImage *image = nil;
+    if ([url.absoluteString hasPrefix:@"http"]) {
+        image = [UIImage imageWithContentsOfFile:url.absoluteString];
+    }else{
+        image = [self decodeBase64ToImage:url.absoluteString];
+    }
     [imageView setBackgroundColor:[UIColor clearColor]];
     imageView.image = image;
     imageView.contentMode = UIViewContentModeScaleAspectFit;
@@ -260,6 +265,12 @@
 
 - (void)fullimagetapped:(UIGestureRecognizer *)gestureRecognizer {
     [self closeImage];
+}
+- (UIImage*)decodeBase64ToImage:(NSString*)imgSrc {
+    NSURL *url = [NSURL URLWithString:imgSrc];
+    NSData *imageData = [NSData dataWithContentsOfURL:url];
+    UIImage *ret = [UIImage imageWithData:imageData];
+    return ret;
 }
 
 - (void)closeButtonPressed:(UIButton *)button {

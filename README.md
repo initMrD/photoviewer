@@ -121,3 +121,6 @@ PhotoViewer.show('http://my_site.com/my_image.jpg', 'Optional Title', options);
 - Update Picasso Library to 2.71828
 - Fixed Picasso Bug
 - Thanks to @TdoubleG
+
+(1.2.5) 
+- Fixed ios open base64 black screen
